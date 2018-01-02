@@ -12,7 +12,14 @@ page_soup = soup(page_html, "html.parser")
 # grabs each container
 containers = page_soup.findAll("div", {"class":"product-tuple-description"})
 
+f = open("winter-is-coming.csv", "w")
+
+headers = "productName, price \n"
+f.write(headers)
+
 for container in containers:
     productName = container.div.p["title"]
     price = container.div.div.find("span", "product-price")["data-price"]
     print(productName, price)
+    f.write(productName + "," + price + "\n")
+f.close()
